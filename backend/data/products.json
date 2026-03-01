@@ -1,0 +1,650 @@
+[
+  {
+    "id": "P001",
+    "name": "ZenBook Pro 16",
+    "category": "Laptops",
+    "price": 1299.99,
+    "description": "Ultra-thin powerhouse with a 16-inch 4K OLED display, Intel i7-13700H, 16 GB RAM, and 512 GB SSD. Perfect for creative professionals and power users who demand portability without compromise.",
+    "tags": [
+      "ultrabook",
+      "4k",
+      "oled",
+      "creative",
+      "portable"
+    ],
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P002",
+    "name": "Budget ChromeBook Air",
+    "category": "Laptops",
+    "price": 249.99,
+    "description": "Lightweight ChromeOS laptop with 14-inch FHD display, MediaTek Kompanio 520, 4 GB RAM, and 64 GB eMMC. Ideal for students and everyday browsing on a tight budget.",
+    "tags": [
+      "budget",
+      "chromebook",
+      "student",
+      "lightweight",
+      "affordable"
+    ],
+    "rating": 4.1,
+    "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P003",
+    "name": "Titan RTX Gaming Rig",
+    "category": "Gaming",
+    "price": 1899.99,
+    "description": "Desktop gaming beast with RTX 4070 Ti, AMD Ryzen 9 7900X, 32 GB DDR5 RAM, 1 TB NVMe SSD, and liquid cooling. Dominates AAA titles at ultra settings and handles VR with ease.",
+    "tags": [
+      "gaming",
+      "desktop",
+      "rtx",
+      "high-performance",
+      "vr-ready"
+    ],
+    "rating": 4.9,
+    "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P004",
+    "name": "SonicWave Pro Headphones",
+    "category": "Audio",
+    "price": 349.99,
+    "description": "Premium over-ear wireless headphones with adaptive noise cancellation, 40-hour battery life, Hi-Res Audio certification, and memory-foam cushions for all-day comfort.",
+    "tags": [
+      "headphones",
+      "noise-cancelling",
+      "wireless",
+      "premium",
+      "hi-res"
+    ],
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P005",
+    "name": "EchoBuds Lite",
+    "category": "Audio",
+    "price": 59.99,
+    "description": "Affordable true-wireless earbuds with 8-hour playback, IPX5 water resistance, touch controls, and a compact charging case. Great workout companion at a fraction of the price.",
+    "tags": [
+      "earbuds",
+      "budget",
+      "wireless",
+      "workout",
+      "water-resistant"
+    ],
+    "rating": 4.2,
+    "image": "https://images.unsplash.com/photo-1590658268037-6bf12f032f55?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P006",
+    "name": "Pulse Fit Smartwatch",
+    "category": "Wearables",
+    "price": 199.99,
+    "description": "Feature-packed fitness smartwatch with heart-rate monitoring, GPS, SpO2 sensor, 5 ATM water resistance, and 7-day battery. Tracks 100+ workout types and syncs with all major health apps.",
+    "tags": [
+      "smartwatch",
+      "fitness",
+      "gps",
+      "health",
+      "wearable"
+    ],
+    "rating": 4.5,
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P007",
+    "name": "NexHub Smart Speaker",
+    "category": "Smart Home",
+    "price": 129.99,
+    "description": "Voice-controlled smart speaker with 360° room-filling sound, built-in smart-home hub (Zigbee + Matter), 7-inch touch display, and video-call camera. The nerve center for your connected home.",
+    "tags": [
+      "smart-speaker",
+      "voice-assistant",
+      "smart-home",
+      "hub",
+      "display"
+    ],
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P008",
+    "name": "ProStylus Drawing Tablet",
+    "category": "Electronics",
+    "price": 449.99,
+    "description": "Professional pen display with 13.3-inch laminated screen, 8192 pressure levels, 120% sRGB color accuracy, and tilt support. A must-have for digital artists and illustrators.",
+    "tags": [
+      "drawing-tablet",
+      "creative",
+      "stylus",
+      "artist",
+      "display"
+    ],
+    "rating": 4.6,
+    "image": "https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P009",
+    "name": "CloudCam Security System",
+    "category": "Smart Home",
+    "price": 179.99,
+    "description": "Two-camera indoor/outdoor security kit with 2K HDR video, night vision, AI person detection, two-way audio, and 30-day cloud storage included. Peace of mind, no subscription required for the first year.",
+    "tags": [
+      "security",
+      "camera",
+      "smart-home",
+      "night-vision",
+      "ai-detection"
+    ],
+    "rating": 4.3,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P010",
+    "name": "Velocity Gaming Mouse",
+    "category": "Gaming",
+    "price": 79.99,
+    "description": "Ultra-lightweight wireless gaming mouse (58 g) with 25K DPI sensor, Optical Gen-3 switches, 70-hour battery, and RGB underglow. Built for competitive FPS and esports.",
+    "tags": [
+      "mouse",
+      "gaming",
+      "wireless",
+      "lightweight",
+      "esports"
+    ],
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P011",
+    "name": "AuraTab Pro 12.9",
+    "category": "Tablets",
+    "price": 899.99,
+    "description": "Premium tablet with 12.9-inch Liquid Retina XDR display, M2 chip, 8 GB RAM, Face ID, and Thunderbolt port. Supports stylus input and desktop-class apps for on-the-go productivity.",
+    "tags": [
+      "tablet",
+      "premium",
+      "stylus",
+      "productivity",
+      "m2-chip"
+    ],
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P012",
+    "name": "SnapLens Mirrorless Camera",
+    "category": "Cameras",
+    "price": 1599.99,
+    "description": "Full-frame 45 MP mirrorless camera with 8K video recording, in-body stabilisation (5-axis), dual card slots, and weather-sealed magnesium body. A dream kit for photographers and filmmakers.",
+    "tags": [
+      "camera",
+      "mirrorless",
+      "full-frame",
+      "8k",
+      "photography"
+    ],
+    "rating": 4.9,
+    "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P013",
+    "name": "MeshLink Wi-Fi 7 Router",
+    "category": "Networking",
+    "price": 329.99,
+    "description": "Tri-band Wi-Fi 7 mesh router with 19 Gbps aggregate speed, 6 GHz support, coverage up to 5,500 sq ft, and built-in VPN server. Future-proof your entire home network.",
+    "tags": [
+      "router",
+      "wifi-7",
+      "mesh",
+      "networking",
+      "high-speed"
+    ],
+    "rating": 4.6,
+    "image": "https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P014",
+    "name": "FlexGrip Keyboard 75%",
+    "category": "Accessories",
+    "price": 139.99,
+    "description": "Hot-swappable mechanical keyboard in 75% layout with gasket-mounted design, south-facing RGB LEDs, PBT keycaps, and tri-mode connectivity (USB-C, Bluetooth, 2.4 GHz). Buttery smooth typing for work or gaming.",
+    "tags": [
+      "keyboard",
+      "mechanical",
+      "hot-swap",
+      "rgb",
+      "75-percent"
+    ],
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P015",
+    "name": "UltraSharp 4K Monitor",
+    "category": "Electronics",
+    "price": 549.99,
+    "description": "27-inch IPS 4K monitor with 100% sRGB / 98% DCI-P3, USB-C 90W PD, KVM switch, and factory-calibrated ΔE < 2. Stunning color accuracy for designers and developers alike.",
+    "tags": [
+      "monitor",
+      "4k",
+      "usb-c",
+      "color-accurate",
+      "ips"
+    ],
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P016",
+    "name": "ThunderDock USB-C Hub",
+    "category": "Accessories",
+    "price": 89.99,
+    "description": "13-in-1 USB-C docking station with dual HDMI 4K@60Hz, 100W passthrough charging, SD/microSD slots, Ethernet, and 3 USB-A ports. One cable to rule them all.",
+    "tags": [
+      "dock",
+      "usb-c",
+      "hub",
+      "hdmi",
+      "accessory"
+    ],
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P017",
+    "name": "Horizon Action Camera",
+    "category": "Cameras",
+    "price": 399.99,
+    "description": "Pocket-sized action camera with 5.3K@60fps, HyperSmooth 6.0 stabilisation, 10m waterproofing (no case), and 177° ultra-wide FOV. Capture every adventure in cinematic detail.",
+    "tags": [
+      "action-camera",
+      "waterproof",
+      "5k",
+      "adventure",
+      "stabilisation"
+    ],
+    "rating": 4.6,
+    "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P018",
+    "name": "NovaGlow Smart Bulbs (4-Pack)",
+    "category": "Smart Home",
+    "price": 49.99,
+    "description": "RGBWW smart bulbs with 16 million colors, tunable white (2700K–6500K), Matter-compatible, and no hub required. Set scenes, schedules, and automation from your phone or voice assistant.",
+    "tags": [
+      "smart-bulb",
+      "rgb",
+      "matter",
+      "smart-home",
+      "automation"
+    ],
+    "rating": 4.3,
+    "image": "https://images.unsplash.com/photo-1550985543-49bee3167284?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P019",
+    "name": "AeroFit ANC Earphones",
+    "category": "Audio",
+    "price": 149.99,
+    "description": "Neckband-style wireless earphones with hybrid ANC, LDAC codec support, 20-hour battery, IPX5 rating, and multipoint connection. Premium audio without the premium price tag.",
+    "tags": [
+      "earphones",
+      "anc",
+      "ldac",
+      "neckband",
+      "wireless"
+    ],
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P020",
+    "name": "PixelPad Budget Tablet",
+    "category": "Tablets",
+    "price": 179.99,
+    "description": "10.4-inch tablet with 2K display, Snapdragon 680, 4 GB RAM, quad speakers with Dolby Atmos, and 7040 mAh battery. The best value Android tablet for media consumption and light productivity.",
+    "tags": [
+      "tablet",
+      "budget",
+      "dolby-atmos",
+      "media",
+      "affordable"
+    ],
+    "rating": 4.2,
+    "image": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P021",
+    "name": "Phantom VR Headset",
+    "category": "Gaming",
+    "price": 499.99,
+    "description": "Standalone VR headset with dual 2160×2160 LCD panels, pancake lenses, Snapdragon XR2 Gen 2, hand tracking 2.0, and mixed-reality passthrough. Immersive gaming and fitness without a PC.",
+    "tags": [
+      "vr",
+      "headset",
+      "standalone",
+      "mixed-reality",
+      "gaming"
+    ],
+    "rating": 4.5,
+    "image": "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P022",
+    "name": "Chrono Luxe Smartband",
+    "category": "Wearables",
+    "price": 69.99,
+    "description": "Slim fitness band with 1.62-inch AMOLED display, heart rate + SpO2, 14-day battery, 5 ATM waterproofing, and 120+ sport modes. All-day health tracking that fits under your shirt cuff.",
+    "tags": [
+      "smartband",
+      "fitness",
+      "amoled",
+      "budget",
+      "health"
+    ],
+    "rating": 4.3,
+    "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P023",
+    "name": "StormCharge Power Bank",
+    "category": "Accessories",
+    "price": 59.99,
+    "description": "20,000 mAh power bank with 65W USB-C PD fast charging, passthrough charging, LED display, and dual output. Charges a laptop to 50% in under an hour on the go.",
+    "tags": [
+      "power-bank",
+      "fast-charging",
+      "usb-c",
+      "portable",
+      "accessory"
+    ],
+    "rating": 4.5,
+    "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P024",
+    "name": "DeskRiser Ergonomic Stand",
+    "category": "Accessories",
+    "price": 44.99,
+    "description": "Adjustable aluminium laptop/monitor riser with ventilation holes, cable management, and anti-slip pads. Elevates your screen to eye level to reduce neck strain during long work sessions.",
+    "tags": [
+      "stand",
+      "ergonomic",
+      "aluminium",
+      "desk",
+      "accessory"
+    ],
+    "rating": 4.2,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": false
+  },
+  {
+    "id": "P025",
+    "name": "Blaze Gaming Laptop 17",
+    "category": "Laptops",
+    "price": 1749.99,
+    "description": "17.3-inch QHD 240Hz gaming laptop with RTX 4060, AMD Ryzen 7 7745HX, 16 GB DDR5, 1 TB NVMe SSD, and per-key RGB keyboard. Portable enough for LAN parties, powerful enough for AAA gaming.",
+    "tags": [
+      "gaming-laptop",
+      "rtx",
+      "240hz",
+      "portable",
+      "rgb"
+    ],
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P026",
+    "name": "BoomBox Portable Speaker",
+    "category": "Audio",
+    "price": 129.99,
+    "description": "Rugged Bluetooth 5.3 speaker with 24-hour battery, IP67 waterproofing, 40W stereo sound, and party-link for pairing up to 100 speakers. Your ultimate outdoor companion.",
+    "tags": [
+      "speaker",
+      "bluetooth",
+      "waterproof",
+      "outdoor",
+      "portable"
+    ],
+    "rating": 4.5,
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P027",
+    "name": "Apex Elite Smartwatch",
+    "category": "Wearables",
+    "price": 349.99,
+    "description": "Premium smartwatch with titanium case, sapphire crystal, AMOLED always-on display, 14-day battery, dual-band GPS, and offline maps. Built for athletes and adventurers.",
+    "tags": [
+      "smartwatch",
+      "premium",
+      "titanium",
+      "gps",
+      "adventure"
+    ],
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P028",
+    "name": "AirPure Smart Air Purifier",
+    "category": "Smart Home",
+    "price": 279.99,
+    "description": "HEPA-13 smart air purifier with real-time AQI sensor, auto mode, whisper-quiet operation (22 dB), and app/voice control. Covers rooms up to 650 sq ft for fresh, clean air.",
+    "tags": [
+      "air-purifier",
+      "smart-home",
+      "hepa",
+      "quiet",
+      "health"
+    ],
+    "rating": 4.6,
+    "image": "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P029",
+    "name": "CineView Mini Projector",
+    "category": "Electronics",
+    "price": 399.99,
+    "description": "Portable 1080p LED projector with 300 ANSI lumens, auto-keystone, built-in Netflix/YouTube, Bluetooth speakers, and HDMI/USB-C input. Cinema-quality entertainment anywhere.",
+    "tags": [
+      "projector",
+      "portable",
+      "1080p",
+      "streaming",
+      "entertainment"
+    ],
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P030",
+    "name": "SwiftTab E-Ink Reader",
+    "category": "Tablets",
+    "price": 229.99,
+    "description": "7-inch E-Ink reader with 300 PPI display, adjustable warm light, IPX8 waterproofing, 8 weeks battery life, and 32 GB storage. Carry your entire library in your pocket.",
+    "tags": [
+      "e-reader",
+      "e-ink",
+      "waterproof",
+      "reading",
+      "portable"
+    ],
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P031",
+    "name": "DroneX Aerial Pro",
+    "category": "Cameras",
+    "price": 1299.99,
+    "description": "Foldable 4K drone with 48MP camera, 3-axis gimbal, 46-min flight time, obstacle sensing on all sides, and ActiveTrack 5.0. Professional aerial photography made easy.",
+    "tags": [
+      "drone",
+      "4k",
+      "aerial",
+      "photography",
+      "foldable"
+    ],
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  },
+  {
+    "id": "P032",
+    "name": "TurboNet 5G Hotspot",
+    "category": "Networking",
+    "price": 199.99,
+    "description": "Pocket 5G mobile hotspot with Wi-Fi 6E, 6000 mAh battery (16-hour life), support for 32 devices, and USB-C tethering. Stay connected at blazing speeds on the move.",
+    "tags": [
+      "5g",
+      "hotspot",
+      "mobile",
+      "wifi-6e",
+      "portable"
+    ],
+    "rating": 4.3,
+    "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P033",
+    "name": "ErgoMax Wireless Mouse",
+    "category": "Accessories",
+    "price": 69.99,
+    "description": "Ergonomic vertical wireless mouse with 4000 DPI sensor, silent clicks, USB-C rechargeable (3-month battery), and Bluetooth + 2.4 GHz dual connectivity. Say goodbye to wrist strain.",
+    "tags": [
+      "mouse",
+      "ergonomic",
+      "vertical",
+      "wireless",
+      "silent"
+    ],
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P034",
+    "name": "ThermoSense Smart Thermostat",
+    "category": "Smart Home",
+    "price": 179.99,
+    "description": "AI-learning smart thermostat with energy-saving algorithms, remote sensing, geofencing, humidity control, and sleek touchscreen display. Saves up to 23% on heating/cooling bills.",
+    "tags": [
+      "thermostat",
+      "smart-home",
+      "energy-saving",
+      "ai",
+      "climate"
+    ],
+    "rating": 4.6,
+    "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P035",
+    "name": "GamePad Ultra Controller",
+    "category": "Gaming",
+    "price": 69.99,
+    "description": "Premium wireless game controller with Hall effect sticks (no drift), adaptive triggers, HD haptics, 40-hour battery, and tri-mode connectivity. Works with PC, Switch, and mobile.",
+    "tags": [
+      "controller",
+      "gamepad",
+      "hall-effect",
+      "wireless",
+      "multi-platform"
+    ],
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=400&h=300&fit=crop",
+    "featured": false,
+    "inStock": true
+  },
+  {
+    "id": "P036",
+    "name": "SoundStage Home Theater",
+    "category": "Audio",
+    "price": 599.99,
+    "description": "5.1.2 Dolby Atmos soundbar system with wireless subwoofer, rear speakers, eARC, and room calibration. Transform your living room into a cinematic experience with spatial audio.",
+    "tags": [
+      "soundbar",
+      "dolby-atmos",
+      "home-theater",
+      "5.1",
+      "surround"
+    ],
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400&h=300&fit=crop",
+    "featured": true,
+    "inStock": true
+  }
+]

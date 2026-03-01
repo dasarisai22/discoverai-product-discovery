@@ -1,0 +1,59 @@
+/* AISummary ─────────────────────────────────────────────────── */
+
+.ai-summary {
+    display: flex;
+    gap: 16px;
+    padding: 20px 24px;
+    max-width: 720px;
+    margin: 0 auto;
+    animation: fadeInUp 0.4s ease both;
+    border-left: 3px solid var(--accent);
+}
+
+.ai-summary-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ai-summary-content {
+    flex: 1;
+}
+
+.ai-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, var(--accent-light), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+}
+
+.ai-summary-content p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.typing-cursor {
+    display: inline-block;
+    color: var(--accent-light);
+    font-weight: 300;
+    animation: blink 0.7s step-end infinite;
+    margin-left: 1px;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,35 @@
+/* ProductList ───────────────────────────────────────────────── */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--gap);
+}
+
+
+.skeleton-card {
+    height: 360px;
+    background: linear-gradient(90deg,
+            var(--bg-card) 25%,
+            rgba(255, 255, 255, 0.06) 50%,
+            var(--bg-card) 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+}
+
+
+.empty-state {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.empty-state p {
+    font-size: 1rem;
+}

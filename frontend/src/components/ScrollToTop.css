@@ -1,0 +1,33 @@
+/* ScrollToTop ───────────────────────────────────────────────── */
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 500;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: rgba(108, 92, 231, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--accent-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInUp 0.3s ease;
+    transition: transform var(--transition), background var(--transition),
+        box-shadow var(--transition);
+}
+
+.scroll-top-btn:hover {
+    background: rgba(108, 92, 231, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 24px var(--accent-glow);
+}
+
+.scroll-top-btn:active {
+    transform: scale(0.92);
+}
