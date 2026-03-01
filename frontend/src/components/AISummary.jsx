@@ -3,9 +3,9 @@ import "./AISummary.css";
 
 /**
  * Displays the AI-generated summary with a sparkle icon and typewriter effect.
- * @param {{ summary: string, visible: boolean }} props
+ * @param {{ summary: string, visible: boolean, loading?: boolean }} props
  */
-export default function AISummary({ summary, visible }) {
+export default function AISummary({ summary, visible, loading }) {
     const [displayed, setDisplayed] = useState("");
     const [done, setDone] = useState(false);
 
@@ -33,23 +33,31 @@ export default function AISummary({ summary, visible }) {
         return () => clearInterval(timer);
     }, [summary, visible]);
 
-    if (!visible || !summary) return null;
+    if (!visible) return null;
+
+    if (loading) {
+        return (
+            <div className="ai-summary glass ai-highlight ai-loading-container" id="ai-loading">
+                <div className="ai-summary-icon pulsing">
+                    ✨
+                </div>
+                <div className="ai-summary-content">
+                    <span className="ai-label">✨ AI Recommendation</span>
+                    <p className="ai-thinking-text">AI is thinking...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!summary) return null;
 
     return (
-        <div className="ai-summary glass" id="ai-summary">
+        <div className="ai-summary glass ai-highlight" id="ai-summary">
             <div className="ai-summary-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <defs>
-                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#6c5ce7" />
-                            <stop offset="100%" stopColor="#00cec9" />
-                        </linearGradient>
-                    </defs>
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                </svg>
+                ✨
             </div>
             <div className="ai-summary-content">
-                <span className="ai-label">AI Recommendation</span>
+                <span className="ai-label">✨ AI Recommendation</span>
                 <p>
                     {displayed}
                     {!done && <span className="typing-cursor">|</span>}

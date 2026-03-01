@@ -1,70 +1,79 @@
 // ─────────────────────────────────────────────────────────────
-// Product Discovery API — Express + OpenAI
+// Product Discovery API — Production-Grade Express Server
 // ─────────────────────────────────────────────────────────────
 
-require("dotenv").config();
+// ┌──────────────────────────────────────────────────────────┐
+// │  1. ENVIRONMENT — Load and validate before anything else │
+// └──────────────────────────────────────────────────────────┘
+const { env, validateEnv } = require("./config/env");
+validateEnv(); // Fails fast on misconfiguration
+
+// ┌──────────────────────────────────────────────────────────┐
+// │  2. DEPENDENCIES                                         │
+// └──────────────────────────────────────────────────────────┘
 const express = require("express");
 const cors = require("cors");
-const OpenAI = require("openai");
 const products = require("./data/products.json");
 
+// Services
+const { createOpenAIClient } = require("./services/openaiClient");
+const { callLLM, classifyLLMError } = require("./services/llmService");
+
+// Middleware
+const { createRateLimiter } = require("./middleware/rateLimiter");
+const { globalErrorHandler, notFoundHandler } = require("./middleware/errorHandler");
+
+// ┌──────────────────────────────────────────────────────────┐
+// │  3. INITIALIZE — OpenAI client via dependency injection  │
+// └──────────────────────────────────────────────────────────┘
+const openai = createOpenAIClient(env.OPENAI_API_KEY);
+
+// ┌──────────────────────────────────────────────────────────┐
+// │  4. EXPRESS APP SETUP                                    │
+// └──────────────────────────────────────────────────────────┘
 const app = express();
-const PORT = process.env.PORT || 4000;
 
-// ── Middleware ────────────────────────────────────────────────
+// ── Global Middleware ────────────────────────────────────────
+
+// CORS — allow frontend origin
 app.use(cors());
-app.use(express.json());
 
-// ── OpenAI client (lazy — only fails when actually called) ───
-let openai;
-if (process.env.OPENAI_API_KEY) {
-  openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-}
+// Body parser with size limit to prevent payload abuse.
+// Default 50kb is generous for a JSON query but blocks
+// multi-MB attacks that could stall the server.
+app.use(express.json({ limit: env.BODY_SIZE_LIMIT }));
 
-// ── Helpers ──────────────────────────────────────────────────
+// Trust proxy — required for correct req.ip behind a reverse proxy
+// (Nginx, Cloudflare, etc.) which is standard in production.
+app.set("trust proxy", 1);
 
-/** Build a compact catalog string for the LLM prompt context */
-function buildCatalogContext() {
-  return products
-    .map(
-      (p) =>
-        `[${p.id}] ${p.name} | ${p.category} | $${p.price} | Rating ${p.rating}/5 | Tags: ${p.tags.join(", ")} | ${p.description}`
-    )
-    .join("\n");
-}
+// ── Rate Limiter (only for /api/ask) ─────────────────────────
+// The AI endpoint is expensive (OpenAI tokens cost money).
+// Rate limiting prevents abuse without affecting catalog browsing.
+const askRateLimiter = createRateLimiter({
+  windowMs: env.RATE_LIMIT_WINDOW_MS,
+  max: env.RATE_LIMIT_MAX_REQUESTS,
+  message: "Too many AI requests. Please wait before trying again.",
+});
 
-/** Try to extract JSON from a raw LLM response string */
-function parseAIResponse(raw) {
-  // Try direct JSON.parse first
-  try {
-    return JSON.parse(raw);
-  } catch {
-    // Fall back to extracting JSON from markdown code fences
-    const match = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
-    if (match) {
-      try {
-        return JSON.parse(match[1].trim());
-      } catch {
-        /* fall through */
-      }
-    }
-    // Last resort: look for { ... } in the text
-    const braceMatch = raw.match(/\{[\s\S]*\}/);
-    if (braceMatch) {
-      try {
-        return JSON.parse(braceMatch[0]);
-      } catch {
-        /* fall through */
-      }
-    }
-  }
-  // If nothing works, return a fallback
-  return { productIds: [], summary: raw };
-}
+// ┌──────────────────────────────────────────────────────────┐
+// │  5. ROUTES                                               │
+// └──────────────────────────────────────────────────────────┘
 
-// ── Routes ───────────────────────────────────────────────────
+// ── Health Check ─────────────────────────────────────────────
+// Used by load balancers, Docker, Kubernetes, and monitoring
+// tools to verify the service is alive and ready.
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+    ai: openai ? "configured" : "not configured",
+  });
+});
 
-
+// ── GET /api/products ────────────────────────────────────────
+// Returns the product catalog with optional category/keyword filtering.
 app.get("/api/products", (req, res) => {
   let result = [...products];
 
@@ -88,10 +97,8 @@ app.get("/api/products", (req, res) => {
   res.json(result);
 });
 
-/**
- * GET /api/products/:id
- * Returns a single product by ID
- */
+// ── GET /api/products/:id ────────────────────────────────────
+// Returns a single product by its string ID.
 app.get("/api/products/:id", (req, res) => {
   const product = products.find((p) => p.id === req.params.id);
   if (!product) {
@@ -100,101 +107,107 @@ app.get("/api/products/:id", (req, res) => {
   res.json(product);
 });
 
-/**
- * POST /api/ask
- * Body: { "query": "user's natural language question" }
- * Returns: { "productIds": [...], "summary": "..." }
- */
-app.post("/api/ask", async (req, res) => {
+// ── POST /api/ask ────────────────────────────────────────────
+// AI-powered product discovery endpoint.
+// Rate-limited to prevent token abuse.
+// Response contract: { mode, summary, productIds, products }
+app.post("/api/ask", askRateLimiter, async (req, res) => {
   const { query } = req.body;
 
+  // Input validation
   if (!query || typeof query !== "string" || query.trim().length === 0) {
     return res.status(400).json({ error: "A non-empty 'query' string is required." });
   }
 
+  // Guard: OpenAI not configured
   if (!openai) {
     return res.status(503).json({
-      error:
-        "AI service is not configured. Please set the OPENAI_API_KEY environment variable.",
+      error: "AI service is not configured. Please set the OPENAI_API_KEY environment variable.",
     });
   }
 
   try {
-    const catalogContext = buildCatalogContext();
-
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0.4,
-      max_tokens: 600,
-      messages: [
-        {
-          role: "system",
-          content: `You are a helpful product recommendation assistant for an online tech store.
-
-PRODUCT CATALOG:
-${catalogContext}
-
-INSTRUCTIONS:
-- Analyse the user's query and select the most relevant products from the catalog above.
-- Respond with ONLY valid JSON (no markdown, no explanation outside the JSON).
-- Use this exact schema:
-  {
-    "productIds": ["P001", "P003"],
-    "summary": "A short, friendly 1–3 sentence summary explaining why these products match the query."
-  }
-- If no products match, return an empty productIds array and explain why in the summary.
-- Always reference products by their catalog ID.`,
-        },
-        {
-          role: "user",
-          content: query.trim(),
-        },
-      ],
-    });
-
-    const rawContent = completion.choices[0]?.message?.content || "";
-    const parsed = parseAIResponse(rawContent);
-
-    // Ensure we always return the expected shape
-    const productIds = Array.isArray(parsed.productIds) ? parsed.productIds : [];
-    const summary = typeof parsed.summary === "string" ? parsed.summary : "";
-
-    // Resolve full product objects for the matched IDs
-    const matchedProducts = productIds
-      .map((id) => products.find((p) => p.id === id))
-      .filter(Boolean);
+    const result = await callLLM(openai, products, query);
 
     res.json({
-      productIds,
-      summary,
-      products: matchedProducts,
+      mode: "ai",
+      summary: result.summary,
+      productIds: result.productIds,
+      products: result.products,
     });
   } catch (err) {
-    console.error("OpenAI API error:", err.message);
+    console.error("LLM Error:", err.message);
 
-    const status =
-      err.status === 429
-        ? 429
-        : err.status >= 500
-        ? 502
-        : 502;
-
-    res.status(status).json({
-      error:
-        status === 429
-          ? "AI service is rate-limited. Please try again in a moment."
-          : "AI service is temporarily unavailable. Please try again later.",
-    });
+    const classified = classifyLLMError(err);
+    res.status(classified.status).json({ error: classified.message });
   }
 });
 
-// ── Start ────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🚀  Product Discovery API running at http://localhost:${PORT}`);
-  console.log(`   GET  /api/products`);
-  console.log(`   GET  /api/products/:id`);
-  console.log(`   POST /api/ask\n`);
+// ┌──────────────────────────────────────────────────────────┐
+// │  6. ERROR HANDLING — must come AFTER all routes          │
+// └──────────────────────────────────────────────────────────┘
+app.use(notFoundHandler);       // Catches undefined routes → 404
+app.use(globalErrorHandler);    // Catches thrown errors → 500
+
+// ┌──────────────────────────────────────────────────────────┐
+// │  7. SERVER START + GRACEFUL SHUTDOWN                     │
+// └──────────────────────────────────────────────────────────┘
+const server = app.listen(env.PORT, () => {
+  console.log("\n╔══════════════════════════════════════════════╗");
+  console.log("║   🚀  Product Discovery API                 ║");
+  console.log("╚══════════════════════════════════════════════╝");
+  console.log(`   Environment : ${env.NODE_ENV}`);
+  console.log(`   Port        : ${env.PORT}`);
+  console.log(`   AI Status   : ${openai ? "✅ Configured" : "❌ Not configured"}`);
+  console.log(`   Rate Limit  : ${env.RATE_LIMIT_MAX_REQUESTS} req / ${env.RATE_LIMIT_WINDOW_MS / 1000}s`);
+  console.log(`   Body Limit  : ${env.BODY_SIZE_LIMIT}`);
+  console.log("");
+  console.log("   Endpoints:");
+  console.log("   GET  /health");
+  console.log("   GET  /api/products");
+  console.log("   GET  /api/products/:id");
+  console.log("   POST /api/ask");
+  console.log("");
   if (!openai) {
-    console.warn("⚠️  OPENAI_API_KEY not set — /api/ask will return 503\n");
+    console.warn("   ⚠️  OPENAI_API_KEY not set — /api/ask will return 503\n");
   }
+});
+
+// ── Graceful Shutdown ────────────────────────────────────────
+// When the process receives a termination signal (e.g., from
+// Docker, Kubernetes, or Ctrl+C), we stop accepting new
+// connections and let in-flight requests finish before exiting.
+// This prevents dropped requests during deployments.
+
+function gracefulShutdown(signal) {
+  console.log(`\n⏹️  Received ${signal}. Shutting down gracefully...`);
+
+  server.close(() => {
+    console.log("✅ All connections closed. Exiting.\n");
+    process.exit(0);
+  });
+
+  // Force exit after 10s if connections don't close cleanly
+  setTimeout(() => {
+    console.error("❌ Forced shutdown — connections did not close in time.");
+    process.exit(1);
+  }, 10_000).unref();
+}
+
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
+
+// ── Catch Uncaught Exceptions & Rejections ───────────────────
+// In production, these indicate bugs. Log them and exit cleanly
+// rather than running in a potentially corrupted state.
+
+process.on("uncaughtException", (err) => {
+  console.error("💥 Uncaught Exception:", err.message);
+  console.error(err.stack);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("💥 Unhandled Rejection:", reason);
+  process.exit(1);
 });

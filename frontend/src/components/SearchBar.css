@@ -78,3 +78,136 @@
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }
+
+/* ── Container & AI Badge ───────────────────────────────────── */
+
+.search-container {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.search-container .search-bar {
+    width: 100%;
+}
+
+.ai-mode-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(135deg, rgba(248, 87, 166, 0.15), rgba(255, 107, 157, 0.05));
+    border: 1px solid rgba(248, 87, 166, 0.3);
+    color: var(--accent-3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.3s ease both;
+}
+
+.ai-active-border {
+    border-color: rgba(248, 87, 166, 0.4);
+    box-shadow: 0 0 0 1px rgba(248, 87, 166, 0.1), var(--shadow);
+}
+
+.ai-active-border:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow);
+}
+
+.pulse-icon {
+    animation: simplePulse 2s infinite;
+}
+
+@keyframes simplePulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+}
+
+/* ── Custom Switch ──────────────────────────────────────────── */
+.search-mode-toggle {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    padding-right: 12px;
+    border-right: 1px solid var(--border);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--text-muted);
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--accent);
+}
+
+input:checked+.slider:before {
+    transform: translateX(16px);
+    background-color: #fff;
+}
+
+input:disabled+.slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

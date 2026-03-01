@@ -2,7 +2,9 @@
 // Centralised API helpers for the Product Discovery frontend
 // ─────────────────────────────────────────────────────────────
 
-const BASE = "http://localhost:4000";
+// In production (Netlify), VITE_API_URL points to the Render backend.
+// In local dev, it falls back to localhost:4000.
+const BASE = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 /**
 

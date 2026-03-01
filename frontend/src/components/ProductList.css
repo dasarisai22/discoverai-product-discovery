@@ -33,3 +33,8 @@
 .empty-state p {
     font-size: 1rem;
 }
+
+.loading-grid {
+    opacity: 0.5;
+    pointer-events: none;
+}

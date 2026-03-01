@@ -1,4 +1,5 @@
 import ProductCard from "./ProductCard";
+import Spinner from "./Spinner";
 import "./ProductList.css";
 
 /**
@@ -8,10 +9,13 @@ import "./ProductList.css";
 export default function ProductList({ products, loading, onProductClick }) {
     if (loading) {
         return (
-            <div className="product-grid" id="product-grid">
-                {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="skeleton-card glass" />
-                ))}
+            <div className="product-grid-wrapper" style={{ position: "relative", minHeight: "360px" }}>
+                <Spinner />
+                <div className="product-grid loading-grid" id="product-grid">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <div key={i} className="skeleton-card glass" />
+                    ))}
+                </div>
             </div>
         );
     }

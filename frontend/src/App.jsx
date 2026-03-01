@@ -7,6 +7,7 @@ import AISummary from "./components/AISummary";
 import ProductList from "./components/ProductList";
 import ProductModal from "./components/ProductModal";
 import ScrollToTop from "./components/ScrollToTop";
+import ErrorState from "./components/ErrorState";
 import "./App.css";
 
 const CATEGORIES = [
@@ -38,7 +39,9 @@ export default function App() {
   const [aiSummary, setAiSummary] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAIMode, setIsAIMode] = useState(false);
+  const [askModeEnabled, setAskModeEnabled] = useState(true); // Toggles between Normal vs AI search in the input bar
   const [cartCount, setCartCount] = useState(0);
+  const [lastQuery, setLastQuery] = useState("");
 
   // ── Add to cart handler ──────────────────────────────────
   const handleAddToCart = useCallback(() => {
@@ -70,6 +73,7 @@ export default function App() {
     try {
       setLoading(true);
       setError(null);
+      setLastQuery("");
       const data = await fetchProducts();
       setProducts(data);
       setDisplayProducts(data);
@@ -110,25 +114,46 @@ export default function App() {
     [applySort]
   );
 
-  // ── AI ask ────────────────────────────────────────────────
+  // ── AI + keyword ask ──────────────────────────────────────
   const handleAsk = useCallback(async (query) => {
     try {
       setAskLoading(true);
       setError(null);
       setAiSummary("");
-      setIsAIMode(true);
       setActiveCategory("All");
+      setLastQuery(query);
 
-      const result = await askAI(query);
-      setAiSummary(result.summary || "");
-      setDisplayProducts(result.products || []);
+      if (askModeEnabled) {
+        setIsAIMode(true);
+        const result = await askAI(query);
+        setAiSummary(result.summary || "");
+        setDisplayProducts(result.products || []);
+      } else {
+        // Normal keyword search
+        setIsAIMode(false);
+        const url = new URL(`http://localhost:4000/api/products`);
+        url.searchParams.set("q", query);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Search failed");
+        const data = await res.json();
+        setDisplayProducts(data);
+      }
     } catch (err) {
       setError(err.message);
       setIsAIMode(false);
     } finally {
       setAskLoading(false);
     }
-  }, []);
+  }, [askModeEnabled]);
+
+  // ── Retry handler ─────────────────────────────────────────
+  const handleRetry = useCallback(() => {
+    if (lastQuery) {
+      handleAsk(lastQuery);
+    } else {
+      loadProducts();
+    }
+  }, [lastQuery, handleAsk, loadProducts]);
 
   // ── Clear AI results ──────────────────────────────────────
   const handleClearAI = useCallback(() => {
@@ -217,22 +242,22 @@ export default function App() {
             </div>
           )}
 
-          <SearchBar onSearch={handleAsk} loading={askLoading} />
+          <SearchBar
+            onSearch={handleAsk}
+            loading={askLoading}
+            isAIMode={askModeEnabled}
+            onToggleMode={setAskModeEnabled}
+          />
         </div>
       </section>
 
       {/* ── Main Content ────────────────────────────────────── */}
       <main className="main container">
-        {/* Error banner */}
-        {error && (
-          <div className="error-banner glass" id="error-banner">
-            <span>⚠️ {error}</span>
-            <button onClick={() => setError(null)} className="error-dismiss">✕</button>
-          </div>
-        )}
+        {/* Error State */}
+        <ErrorState error={error} onRetry={handleRetry} />
 
         {/* AI Summary */}
-        <AISummary summary={aiSummary} visible={isAIMode} />
+        <AISummary summary={aiSummary} visible={isAIMode} loading={askLoading} />
 
         {/* Toolbar: categories + sort + clear */}
         <div className="toolbar">
@@ -262,7 +287,7 @@ export default function App() {
 
         <ProductList
           products={displayProducts}
-          loading={loading}
+          loading={loading || askLoading}
           onProductClick={setSelectedProduct}
         />
       </main>
